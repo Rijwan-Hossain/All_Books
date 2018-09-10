@@ -1,4 +1,6 @@
 
+
+
 var books = [ 
     { 
         name: 'JavaScript Definitive Guide',
@@ -62,6 +64,7 @@ btn2.onclick = function() {
     addDiv.style.marginTop = '50px';
 
     let form = document.createElement('form');
+    form.id = 'frm';
     addDiv.append(form);
 
     // Book Name
@@ -75,7 +78,7 @@ btn2.onclick = function() {
 
     let nameInput = document.createElement('input');
     nameInput.className = 'form-control col-md-5';
-    nameInput.required = true;
+    nameInput.setAttribute('name', 'first');
     nameDiv.append(nameInput);
 
 
@@ -91,6 +94,7 @@ btn2.onclick = function() {
     let prizeInput = document.createElement('input');
     prizeInput.className = 'form-control col-md-5';
     prizeInput.required = true;
+    prizeInput.setAttribute('name', 'second');
     prizeDiv.append(prizeInput);
 
 
@@ -100,9 +104,18 @@ btn2.onclick = function() {
     form.appendChild(addBtn);
 
 
-    addBtn.onclick = function(event) { 
-        console.log(event.target.value);
-        
+    form.onsubmit = function(event) { 
+        event.preventDefault();
+        let bookName = event.target.first.value;
+        let bookPrize = event.target.second.value; 
+
+        let newObj = {
+            name: bookName,
+            prize: bookPrize
+        } 
+        books.push(newObj); 
+
+        alert('New book added successfully');
     } 
 } 
 
@@ -251,10 +264,6 @@ function listGenerateForbooks(book) {
         crossSpan.style.color = 'red';
         crossSpan.style.fontWeight = 'bold';
         favLi.append(crossSpan); 
-
-        // crosspan.onclick = function() { 
-        //     favLi.remove();
-        // } 
     } 
 
 
@@ -262,6 +271,10 @@ function listGenerateForbooks(book) {
     li.append(span2); 
     li.append(span3); 
     li.append(span4); 
-
+    
     return li; 
 } 
+
+
+
+
